@@ -169,6 +169,7 @@ git checkout origin/branch1 -b branch2
 git push --set-upstream origin branch2
 
 # 撤销工作区 file 内容的修改。危险操作，谨慎使用
+## 恢复到上一次 git commit 的状态
 git checkout -- <file>
 
 # 撤销工作区所有内容的修改。危险操作，谨慎使用
@@ -208,3 +209,48 @@ git remote add repositoryname git@github.com:username/projectname.git
 git remote
 ```
 
+
+
+### git restore: 取消缓存
+
+`git restore` 用于将改动从暂存区退回工作区
+
+```shell
+# 将 a.js 文件取消缓存（取消 add 操作，不改变文件内容）
+git restore --staged a.js
+
+# 将所有文件取消缓存
+git restore --staged .
+```
+
+
+
+### git reset: 回滚代码
+
+`git reset` 用于撤销各种 commit 操作，回滚代码
+
+```shell
+# 将某个版本的 commit 从本地仓库退回到工作区（取消 commit 和 add 操作，不改变文件内容）
+## 默认不加 -- 参数时时 mixed
+git reset --mixed <commit_sha>
+
+# 将某个版本的 commit 从本地仓库退回到缓存区（取消 commit 操作，不取消 add，不改变文件内容）
+git reset --soft <commit_sha>
+
+# 取消某次 commit 的记录（取消 commit 和 add，且改变文件内容）
+git reset --hard <commit_sha>
+
+## 以上三种操作退回了 commit，都是退回本地仓库的 commit，没有改变远程仓库的 commit。通常再次修改后配合如下命令覆盖远程仓库的 commit：
+git push -f
+```
+
+
+
+
+
+
+
+## Notice
+
+- 本地分支必须和远程分支保持相同的名字，否则 `git push`会失败
+- 
