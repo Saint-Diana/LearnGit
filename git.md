@@ -198,3 +198,13 @@ git branch -avv
 
 
 
+### git remote: 操作远程仓库
+
+```shell
+# 添加远程仓库
+git remote add repositoryname git@github.com:username/projectname.git
+
+# 查看远程仓库
+git remote
+```
+
